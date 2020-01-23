@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SW Battle Handler</title>
+		<link rel="icon" type="image/png" href="./img/favicon.png"/>
+		<!-- Jquery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- Bootstrap 3 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="./css/main-style.css">
+	</head>
+	<body>
+		<div id="APPLICATION_PANEL" class="row" style="margin-top: 1em; margin-left: 0;margin-right: 0;"><div class="col-lg-10 col-lg-offset-1 col-md-12">
+			<div class="panel panel-primary ">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-11 col-sm-11 col-xs-10">
+							<h4>Star wars FFG Battle handler</h4>
+						</div>
+						<div class="col-md-1 col-sm-1 col-xs-2 rightAlign" style="padding-right:2em;">
+							<h4>
+								<span class="pointer" onclick="$('#aboutModal').modal();">?</span>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<!-- Menu is dynamicaly loaded -->
+				<div id="menu"></div>
+				<div class="panel-body">
+					<div class="row">
+						<div id="turn-order" class="col-md-4">
+						</div>
+						<div id="main-panel"class="col-md-8">
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer rightAlign">&copy;2020 Frimousse Corp. - All Right Reserved</div>
+			</div>
+		</div></div>
+		<!-- Fonctions utilitaires -->
+		<script src="./js/common.util.js"></script>
+	</body>
+	
+</html>
+	
