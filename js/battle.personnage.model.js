@@ -35,6 +35,7 @@ class Personnage{
 				effet.nom = effetTag.find(".inputEffetNom").val();
 				effet.dureeRestante = getNumber(effetTag.find(".inputEffetDureeRestante").val());
 				effet.dureeTotale = getNumber(effetTag.find(".inputEffetDureeTotale").val());
+				effet.description = effetTag.find(".inputEffetDescription").val();
 				this.effets.push(effet);
 			});
 		}
@@ -68,6 +69,7 @@ class Personnage{
 				effetTag.find(".inputEffetNom").val(effet.nom);
 				effetTag.find(".inputEffetDureeRestante").val(effet.dureeRestante);
 				effetTag.find(".inputEffetDureeTotale").val(effet.dureeTotale);
+				effetTag.find(".inputEffetDescription").val(effet.description);
 				/* Attacher event Listener */
 				effetTag.find(".form-control").change(() =>{
 					personnageCourant.updateFromBaseTag($("#personnageCourant"));
