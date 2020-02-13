@@ -4,8 +4,10 @@ let modal = {};
 	title:string, default "Attention"
 	text:string, default "Êtes vous sur de vouloir effectuer cette action?
 	onConfirm: function, to Execute before hiding the popup in cadse of confirm press;
+	onConfirmArguments: array, default [];
 	showCancelButton: boolean, default false;
 	onCancel: function To execute before hiding the popup in case of cancel press
+	onCancelArguments: array, default [];
 }
  */
 modal.askConfirm = (options) =>{
@@ -26,13 +28,22 @@ modal.askConfirm = (options) =>{
 
 	}
 	if(options.onConfirm){
-		modal.confirm = (() => { options.onConfirm(); $('#confirm_modal').modal('hide'); });
+		let onConfirmArguments = options.onConfirmArguments || {};
+		//On force à "onConfirmArguments" si c'est un nombre;
+		if(typeof (options.onConfirmArguments) === "number"){
+			onConfirmArguments = options.onConfirmArguments;
+		}
+		modal.confirm = (() => { options.onConfirm(onConfirmArguments); $('#confirm_modal').modal('hide'); });
 	}
 	else{
 		modal.confirm = (() => { $('#confirm_modal').modal('hide'); });
 	}
 	if(options.onCancel){
-		modal.cancel = (() => { options.onCancel(); $('#confirm_modal').modal('hide'); });
+		let onCancelArguments = options.onCancelArguments || {};
+		if(typeof (options.onCancelArguments) === "number"){
+			onCancelArguments = options.onCancelArguments;
+		}
+		modal.cancel = (() => { options.onCancel(onCancelArguments); $('#confirm_modal').modal('hide'); });
 	}
 	else{
 		modal.cancel = (() => { $('#confirm_modal').modal('hide'); });

@@ -41,6 +41,7 @@ function refreshListPersonnage(){
 	else{
 		personnageCourant = null;
 		$("#personnageCourant").addClass("hidden");
+		$("#aucunPersonnagePlaceholder").removeClass("hidden");
 	}
 }
 
@@ -50,6 +51,7 @@ function addPersonnageToList(toAdd){
 	refreshListPersonnage();
 	selectPersonnage(toAdd.id);
 	$("#personnageCourant").removeClass("hidden");
+	$("#aucunPersonnagePlaceholder").addClass("hidden");
 }
 
 function loadPersonnage(evenement){
