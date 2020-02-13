@@ -1,22 +1,70 @@
 <div class="panel panel-default panel-auto-size">
-	<div class="panel-heading">
-		<h5 style="font-weight:bold">Déroulement</h5>
-	</div>
-	<div class="panel-body">
-		<div class="row">
-			<label class="col-md-3 label-sm rightAlign">Sélection du combattant</label>
-			<div class="col-md-6">
-				<select id="combattantSelect" class="form-control input-sm">
-					<option value="CODE_PERSO">Jean Louis de la mansarde</option>
-					<option value="CODE_PERSO">Jean Marc de la mansarde</option>
-					<option value="CODE_PERSO">Jean Louis David</option>
-					<option value="CODE_PERSO">Jean Louis Rémy</option>
-				</select>
-			</div>
-			<div class="col-md-3">
-			
-			</div>
-		</div>
-		<hr>
-	</div>
+    <div class="panel-heading">
+        <div class="row">
+            <label class="col-lg-2 col-md-2 col-sm-3 col-xs-3 label-sm rightAlign">Combattant</label>
+            <div class="col-lg-6 col-xl-7 col-md-5 col-sm-9 col-xs-9">
+                <select class="form-control input-sm" id="personnageSelect"
+                        onchange="selectPersonnage($(this).val());">
+                </select>
+            </div>
+            <div class="col-lg-4 col-xl-3 col-md-5 col-sm-12 col-xs-12">
+                <a class="btn-default btn btn-sm" href="#" onclick="addPersonnageToList(new Personnage());">
+                    <span class="glyphicon glyphicon-file"></span>
+                </a>
+                <a class="btn-default btn btn-sm" href="#" onclick="savePersonnage()">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </a>
+                <a class="btn btn-default btn-sm" href="#" onclick="$('#personnageLoader').click();">
+                    <span class="glyphicon glyphicon-folder-open"/>
+                </a>
+                <a class="btn btn-default btn-sm disabled" href="#" id="returnButton">
+                    <span class="glyphicon glyphicon-step-backward"/>
+                </a>
+                <a class="disabled btn-primary btn btn-sm" href="#" id="playButton">
+                    <span class="glyphicon glyphicon-play"></span>
+                </a>
+                <a class="btn-danger btn btn-sm" href="#" onclick="modal.askConfirm({showCancelButton:true,onConfirm:deletePersonnage});">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+                <input id="personnageLoader" onchange="loadPersonnage(this)" style="display:none" type="file"/>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" id="personnageCourant">
+            <div class="form-group">
+                <label class="col-md-1 control-label">Nom</label>
+                <div class="col-md-4"><input class="form-control inputNom" placeholder="Nom du personnage" type="text"/>
+                </div>
+                <label class=" col-md-1 control-label">Type</label>
+                <div class="col-md-2 "><input class="form-control inputType" placeholder="PJ/PNJ" type="text"/></div>
+                <label class=" col-md-1 control-label">Groupe</label>
+                <div class="col-md-3"><input class="form-control inputGroupe" placeholder="Groupe" type="text"/></div>
+            </div>
+            <hr>
+            <div class="form-group">
+                <div class="col-md-3 no_padding_col">
+                    <label class="col-md-5 control-label">Initiative</label>
+                    <div class="col-md-7"><input class="form-control inputInitiative" placeholder="15" type="text"/>
+                    </div>
+                </div>
+                <div class="col-md-3 no_padding_col">
+                    <label class="col-md-5 control-label">Soak</label>
+                    <div class="col-md-7">
+                        <input class="form-control inputSoak" placeholder="3" type="text"/>
+                    </div>
+                </div>
+                <div class="col-md-3 no_padding_col">
+                    <label class="col-md-5 control-label">Defense</label>
+                    <div class="col-md-7"><input class="form-control inputDefense" placeholder="4" type="text"/></div>
+                </div>
+                <div class="col-md-3 no_padding_col">
+                    <label class="col-md-5 control-label">Adversary</label>
+                    <div class="col-md-7"><input class="form-control inputAdversary" placeholder="5" type="text"/></div>
+                </div>
+            </div>
+            <hr>
+            ICI SERONT LES EFFETS
+        </form>
+    </div>
 </div>

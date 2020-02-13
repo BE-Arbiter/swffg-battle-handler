@@ -1,3 +1,5 @@
+//Compteur pour générer des nombres uniques
+let counter = 0;
 //Inclusion des modals et includes
 $(document).ready(function() {
 	$("#menu").load("./html/menu.html");
@@ -7,9 +9,17 @@ $(document).ready(function() {
 			var leftPanel = $("#turn-order .panel-auto-size");
 			var panelRight = $("#main-panel .panel-auto-size");
 			adjustSize(leftPanel,panelRight);
+				
+			//Initialiser le combat;
+			refreshListPersonnage();
+			
+			$("#personnageCourant .form-control").change(() =>{
+				personnageCourant.updateFromBaseTag($("#personnageCourant"));
+				refreshListPersonnage();
+			});
+			
 		});
 	});
-	
 	
 });
 //Recalcul auto
