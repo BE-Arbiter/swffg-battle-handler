@@ -1,27 +1,5 @@
 //Compteur pour générer des nombres uniques
 let counter = 0;
-//Inclusion des modals et includes
-$(document).ready(function() {
-	$("#menu").load("./html/menu.html");
-	/* Chargement du principal un peu particulier pour le resize */
-	$("#turn-order").load("./html/turn-order.html", function(){
-		$("#main-panel").load("./html/main-panel.html", function(){
-			var leftPanel = $("#turn-order .panel-auto-size");
-			var panelRight = $("#main-panel .panel-auto-size");
-			adjustSize(leftPanel,panelRight);
-				
-			//Initialiser le combat;
-			refreshListPersonnage();
-			
-			$("#personnageCourant .form-control").change(() =>{
-				personnageCourant.updateFromBaseTag($("#personnageCourant"));
-				refreshListPersonnage();
-			});
-			
-		});
-	});
-	
-});
 //Recalcul auto
 $(window).resize(function() {				
 	var leftPanel = $("#turn-order .panel-auto-size");
@@ -30,7 +8,13 @@ $(window).resize(function() {
 	adjustSize(leftPanel,panelRight);
 });
 
-
+function getNumber(value){
+	let number = Number(value);
+	if(number !== number){
+		return null;
+	}
+	return number;
+}
 //Gestion des hauteurs de colonnes pour un joli layout
 function adjustSize(panelLeft,panelRight){
 	resetSize(panelLeft, panelRight);

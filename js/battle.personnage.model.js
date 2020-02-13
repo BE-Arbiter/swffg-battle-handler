@@ -1,8 +1,7 @@
 class Personnage{
 	constructor(baseTag){
 		this.id = counter++;
-		this.updateFromBaseTag = Personnage.prototype.updateFromBaseTag;
-		this.updateToBaseTag = Personnage.prototype.updateToBaseTag;
+		this.effets = [];
 		if(baseTag && baseTag.length){
 			this.updateFromBaseTag(baseTag);
 		}
@@ -25,12 +24,20 @@ class Personnage{
 			this.nom = baseTag.find(".inputNom").val();
 			this.type = baseTag.find(".inputType").val();
 			this.groupe = baseTag.find(".inputGroupe").val();
-			this.soak = baseTag.find(".inputSoak").val();
-			this.defense = baseTag.find(".inputDefense").val();
-			this.adversary = baseTag.find(".inputAdversary").val();
-			this.initiative = baseTag.find(".inputInitiative").val();
-			//TODO Traiter les effets
-			//this.nom = baseTag.children(".inputEffets?").val()
+			this.soak = getNumber(baseTag.find(".inputSoak").val());
+			this.defense = getNumber(baseTag.find(".inputDefense").val());
+			this.adversary = getNumber(baseTag.find(".inputAdversary").val());
+			this.initiative = getNumber(baseTag.find(".inputInitiative").val());
+			this.effets = [];
+			baseTag.find(".effet_element").each((index,element) => {
+				let effetTag = $( element );
+				let effet = new Effet();
+				effet.nom = effetTag.find(".inputEffetNom").val();
+				effet.dureeRestante = getNumber(effetTag.find(".inputEffetDureeRestante").val());
+				effet.dureeTotale = getNumber(effetTag.find(".inputEffetDureeTotale").val());
+				effet.description = effetTag.find(".inputEffetDescription").val();
+				this.effets.push(effet);
+			});
 		}
 	};
 
@@ -43,8 +50,39 @@ class Personnage{
 			baseTag.find(".inputDefense").val(this.defense);
 			baseTag.find(".inputAdversary").val(this.adversary);
 			baseTag.find(".inputInitiative").val(this.initiative);
-			//TODO Traiter les effets
-			//this.nom = baseTag.children(".inputEffets?").val()
+			let listEffetsTag = baseTag.find(".ListEffets");
+			if(this.effets.length === 0){
+				baseTag.find(".effetPlaceholder").removeClass("hidden");
+			}
+			else{
+				baseTag.find(".effetPlaceholder").addClass("hidden");
+			}
+			baseTag.find(".effet_element").remove();
+			for(let i = 0; i < this.effets.length; i++){
+				/* Créer le tag */
+				let effet = this.effets[i];
+				let template = getHtmlFromFile("./html/templates/templateEffet.html");
+				template = template.split("INDEX_EFFET").join(i+'');
+				listEffetsTag.append(template);
+				/* Retrouver le tag */
+				let effetTag = listEffetsTag.find(".effet_"+i);
+				effetTag.find(".inputEffetNom").val(effet.nom);
+				effetTag.find(".inputEffetDureeRestante").val(effet.dureeRestante);
+				effetTag.find(".inputEffetDureeTotale").val(effet.dureeTotale);
+				effetTag.find(".inputEffetDescription").val(effet.description);
+				/* Attacher event Listener */
+				effetTag.find(".form-control").change(() =>{
+					personnageCourant.updateFromBaseTag($("#personnageCourant"));
+					refreshListPersonnage();
+				});
+			}
 		}
 	};
+}
+
+class Effet{
+	nom;
+	description;
+	dureeTotale;
+	dureeRestante;
 }

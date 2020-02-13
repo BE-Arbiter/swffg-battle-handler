@@ -23,7 +23,8 @@
                 <a class="disabled btn-primary btn btn-sm" href="#" id="playButton">
                     <span class="glyphicon glyphicon-play"></span>
                 </a>
-                <a class="btn-danger btn btn-sm" href="#" onclick="modal.askConfirm({showCancelButton:true,onConfirm:deletePersonnage});">
+                <a class="btn-danger btn btn-sm" href="#"
+                   onclick="modal.askConfirm({showCancelButton:true,onConfirm:deletePersonnage});">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
                 <input id="personnageLoader" onchange="loadPersonnage(this)" style="display:none" type="file"/>
@@ -31,6 +32,7 @@
         </div>
     </div>
     <div class="panel-body">
+        <div id="aucunPersonnagePlaceholder">Aucun Personnage</div>
         <form class="form-horizontal" id="personnageCourant">
             <div class="form-group">
                 <label class="col-md-1 control-label">Nom</label>
@@ -64,7 +66,33 @@
                 </div>
             </div>
             <hr>
-            ICI SERONT LES EFFETS
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <label class="col-md-10 col-sm-8 col-xs-8 label-sm">Liste des Effets</label>
+                        <div class="col-md-2 col-sm-4 col-xs-4 rightAlign">
+                            <a class="btn-default btn btn-sm" href="#" onclick="addEffet();">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body ListEffets">
+                    <div class="row">
+                        <label class="col-lg-7 col-md-6 hidden-sm hidden-xs">Nom</label>
+                        <label class="col-md-2 hidden-sm hidden-xs">Durée Restante</label>
+                        <label class="col-md-2 hidden-sm hidden-xs">Durée Totale</label>
+                        <label class="col-md-2 col-lg-1 hidden-sm hidden-xs">Actions</label>
+                    </div>
+                    <div class="row effetPlaceholder">
+                        <div class="col-md-1 col-sm-1 col-xs-1">
+                        </div>
+                        <div class="col-md-11 col-sm-11 col-xs-11">
+                            Aucun Effet Actif
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
