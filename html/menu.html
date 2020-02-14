@@ -1,14 +1,43 @@
 <ul class="nav nav-pills">
-  <li role="presentation" class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-      Fichiers <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-		<li role="presentation"><a href="#">Nouveau Combat</a></li>
-		<li  class="divider"></li>
-		<li role="presentation"><a href="#">Nouveau Personnage</a></li>
-		<li role="presentation"><a href="#">Charger Personnage</a></li>
-		<li role="presentation"><a href="#">Sauver Personnage</a></li>
-    </ul>
-  </li>
+    <li class="dropdown" role="presentation">
+        <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#"
+           role="button">
+            Gestion des combats <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li role="presentation"><a href="#">Nouveau Combat</a></li>
+            <li role="presentation"><a href="#">Charger Combat</a></li>
+            <li role="presentation"><a href="#">Sauver Combat</a></li>
+            <li role="presentation"><a href="#">Supprimer Combat</a></li>
+        </ul>
+    </li>
+    <li class="dropdown" role="presentation">
+        <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#"
+           role="button">
+            Gestion des personnages <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li role="presentation">
+                <a href="#" onclick="addPersonnageToList(new Personnage());">
+                    Nouveau Personnage
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#" onclick="$('#personnageLoader').click();">
+                    Charger Personnage
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#" onclick="savePersonnage()">
+                    Sauver Personnage
+                </a>
+                <input id="personnageLoader" onchange="loadPersonnage(this)" style="display:none" type="file"/>
+            </li>
+            <li role="presentation">
+                <a href="#" onclick="modal.askConfirm({showCancelButton:true,onConfirm:deletePersonnage});">
+                    Supprimer Personnage
+                </a>
+            </li>
+        </ul>
+    </li>
 </ul>

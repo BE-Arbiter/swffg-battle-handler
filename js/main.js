@@ -12,7 +12,7 @@ $(document).ready(function() {
             refreshListPersonnage();
 
             $("#personnageCourant .form-control").change(() =>{
-                personnageCourant.updateFromBaseTag($("#personnageCourant"));
+                context.combatActuel.personnageCourant.updateFromBaseTag($("#personnageCourant"));
                 refreshListPersonnage();
             });
 

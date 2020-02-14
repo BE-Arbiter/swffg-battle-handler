@@ -1,33 +1,21 @@
 <div class="panel panel-default panel-auto-size">
     <div class="panel-heading">
         <div class="row">
-            <label class="col-lg-2 col-md-2 col-sm-3 col-xs-3 label-sm rightAlign">Combattant</label>
-            <div class="col-lg-6 col-xl-7 col-md-5 col-sm-9 col-xs-9">
+            <label class="col-auto-fit no-padding-col-right label-sm rightAlign">
+                Combattant :
+            </label>
+            <div class="col-md-6 col-sm-8 col-xs-8">
                 <select class="form-control input-sm" id="personnageSelect"
                         onchange="selectPersonnage($(this).val());">
                 </select>
             </div>
-            <div class="col-lg-4 col-xl-3 col-md-5 col-sm-12 col-xs-12">
-                <a class="btn-default btn btn-sm" href="#" onclick="addPersonnageToList(new Personnage());">
-                    <span class="glyphicon glyphicon-file"></span>
-                </a>
-                <a class="btn-default btn btn-sm" href="#" onclick="savePersonnage()">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                </a>
-                <a class="btn btn-default btn-sm" href="#" onclick="$('#personnageLoader').click();">
-                    <span class="glyphicon glyphicon-folder-open"/>
-                </a>
+            <div class="col-md-2 col-sm-2 col-xs-2">
                 <a class="btn btn-default btn-sm disabled" href="#" id="returnButton">
                     <span class="glyphicon glyphicon-step-backward"/>
                 </a>
                 <a class="disabled btn-primary btn btn-sm" href="#" id="playButton">
                     <span class="glyphicon glyphicon-play"></span>
                 </a>
-                <a class="btn-danger btn btn-sm" href="#"
-                   onclick="modal.askConfirm({showCancelButton:true,onConfirm:deletePersonnage});">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </a>
-                <input id="personnageLoader" onchange="loadPersonnage(this)" style="display:none" type="file"/>
             </div>
         </div>
     </div>
@@ -45,22 +33,22 @@
             </div>
             <hr>
             <div class="form-group">
-                <div class="col-md-3 no_padding_col">
+                <div class="col-md-3 no-padding-col">
                     <label class="col-md-5 control-label">Initiative</label>
                     <div class="col-md-7"><input class="form-control inputInitiative" placeholder="15" type="text"/>
                     </div>
                 </div>
-                <div class="col-md-3 no_padding_col">
+                <div class="col-md-3 no-padding-col">
                     <label class="col-md-5 control-label">Soak</label>
                     <div class="col-md-7">
                         <input class="form-control inputSoak" placeholder="3" type="text"/>
                     </div>
                 </div>
-                <div class="col-md-3 no_padding_col">
+                <div class="col-md-3 no-padding-col">
                     <label class="col-md-5 control-label">Defense</label>
                     <div class="col-md-7"><input class="form-control inputDefense" placeholder="4" type="text"/></div>
                 </div>
-                <div class="col-md-3 no_padding_col">
+                <div class="col-md-3 no-padding-col">
                     <label class="col-md-5 control-label">Adversary</label>
                     <div class="col-md-7"><input class="form-control inputAdversary" placeholder="5" type="text"/></div>
                 </div>

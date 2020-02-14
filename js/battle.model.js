@@ -1,6 +1,22 @@
+//Définition du contexte global de l'application
+let context = {
+	counter : 0,
+	typesPj:{
+		emptyValue: {code:null,label:""},
+		list:  [{code:"PJ",label:"Personnage joueur"},{code:"PNJ",label:"Personnage non joueur"}]
+	},
+	typeCombats:{
+		emptyValue: null,
+		list: [{code:"NOM",label:"Initiative Nominative"},{code:"TYPE",label:"Initiative par type"},{code:"GROUPE",label:"Initiative par groupe"}]
+	},
+	combatActuel: null,
+	combats: []
+};
+
+//Définition d'un personnage
 class Personnage{
 	constructor(baseTag){
-		this.id = counter++;
+		this.id = context.counter++;
 		this.effets = [];
 		if(baseTag && baseTag.length){
 			this.updateFromBaseTag(baseTag);
@@ -79,10 +95,54 @@ class Personnage{
 		}
 	};
 }
-
+//Définition d'un effet "préjudiciable"
 class Effet{
 	nom;
 	description;
 	dureeTotale;
 	dureeRestante;
 }
+//Définition de l'init Tracker
+class Initiative{
+	constructor() {
+		this.label = "";
+		this.value = 0;
+		this.last = false;
+		this.group = "";
+	}
+	label;
+	group;
+	value;
+	last;
+}
+
+//Définition d'un combat
+class Combat{
+	constructor(baseTag){
+		this.personnageCourant = new Personnage();
+		this.personnageList = [this.personnageCourant];
+		this.personnageInactifs =  [];
+		this.lastInit =  null;
+		this.initiatives = [];
+		this.typeCombat = "NOM";
+		this.currentInitiativeIndex;
+	}
+	typeCombat; //Groupe , Type ou Nominatif
+	initiatives;
+	currentInitiativeIndex;
+	personnageCourant;
+	personnageList;
+	personnageInactifs;
+	lastInit;
+
+	canPlay(){
+
+	}
+	nextInitiative(){
+
+	}
+}
+
+context.combatActuel = new Combat();
+context.combats = [context.combatActuel];
+

@@ -1,14 +1,8 @@
-let emptyValue = {code:null,label:""};
-let typesList = [{code:"PJ",label:"Personnage joueur"},{code:"PNJ",label:"Personnage non joueur"}];
-let personnageList = [];
-let personnageCourant = null;
-let lastInit = null;
-
 function selectPersonnage(id){
-	for(let tmpPersonnage of personnageList){
+	for(let tmpPersonnage of context.combatActuel.personnageList){
 		if(tmpPersonnage.id == id){
-			personnageCourant = tmpPersonnage;
-			personnageCourant.updateToBaseTag($("#personnageCourant"));
+			context.combatActuel.personnageCourant = tmpPersonnage;
+			context.combatActuel.personnageCourant.updateToBaseTag($("#personnageCourant"));
 			return;
 		}
 	}
@@ -20,34 +14,38 @@ function refreshListPersonnage(){
 	select.empty();
 	//Parcourir les personnages
 	let hasPersonnageCourrant = false;
-	for(let personnageTmp of personnageList){
+	for(let personnageTmp of context.combatActuel.personnageList){
 		let nomToAdd = "Nouveau Personnage";
 		if(personnageTmp.nom){
 			nomToAdd = personnageTmp.nom;
 		}
 		select.append('<option value="'+personnageTmp.id+'">'+nomToAdd+'</option>')
-		if(personnageCourant && personnageCourant.nom === personnageTmp.nom){
+		if(context.combatActuel.personnageCourant && context.combatActuel.personnageCourant.nom === personnageTmp.nom){
 			hasPersonnageCourrant = true;
 		}
 	}
 	//Sélectionner le personnage courrant si il existe encore;
 	if(hasPersonnageCourrant){
-		$('#personnageSelect option[value='+personnageCourant.id+']').attr('selected','selected');
+		$('#personnageSelect option[value='+context.combatActuel.personnageCourant.id+']').attr('selected','selected');
+		$("#personnageCourant").removeClass("hidden");
+		$("#aucunPersonnagePlaceholder").addClass("hidden");
 	}
-	else if(personnageList.length > 0){
-		personnageCourant = personnageList[0];
-		personnageCourant.updateToBaseTag($("#personnageCourant"));
+	else if(context.combatActuel.personnageList.length > 0){
+		context.combatActuel.personnageCourant = context.combatActuel.personnageList[0];
+		context.combatActuel.personnageCourant.updateToBaseTag($("#personnageCourant"));
+		$("#personnageCourant").removeClass("hidden");
+		$("#aucunPersonnagePlaceholder").addClass("hidden");
 	}
 	else{
-		personnageCourant = null;
+		context.combatActuel.personnageCourant = null;
 		$("#personnageCourant").addClass("hidden");
 		$("#aucunPersonnagePlaceholder").removeClass("hidden");
 	}
 }
 
 function addPersonnageToList(toAdd){
-	personnageCourant = toAdd;
-	personnageList.push(personnageCourant);
+	context.combatActuel.personnageCourant = toAdd;
+	context.combatActuel.personnageList.push(context.combatActuel.personnageCourant);
 	refreshListPersonnage();
 	selectPersonnage(toAdd.id);
 	$("#personnageCourant").removeClass("hidden");
@@ -72,12 +70,12 @@ function loadPersonnage(evenement){
 }
 
 function deletePersonnage(){
-	if(!personnageCourant){
+	if(!context.combatActuel.personnageCourant){
 		return;
 	}
-	for(let i = 0; i < personnageList.length ; i++){
-		if(personnageList[i].id === personnageCourant.id){
-			personnageList.splice(i,1);
+	for(let i = 0; i < context.combatActuel.personnageList.length ; i++){
+		if(context.combatActuel.personnageList[i].id === context.combatActuel.personnageCourant.id){
+			context.combatActuel.personnageList.splice(i,1);
 			break;
 		}
 	}
@@ -95,20 +93,4 @@ function savePersonnage(){
 	fileName+= ".json";
 	var blob = new Blob([text],{type:"application/json"});
 	download(blob,fileName);
-}
-
-//Gestion des effets
-function deleteEffet(index){
-	if(typeof(index) === "number"){
-		personnageCourant.effets.splice(index,1);
-		personnageCourant.updateToBaseTag($("#personnageCourant"));
-	}
-}
-
-function addEffet(){
-	if(!personnageCourant.effets){
-		personnageCourant.effets = [];
-	}
-	personnageCourant.effets.push(new Effet());
-	personnageCourant.updateToBaseTag($("#personnageCourant"));
 }
