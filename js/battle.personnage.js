@@ -3,6 +3,7 @@ function selectPersonnage(id){
 		if(tmpPersonnage.id == id){
 			context.combatActuel.personnageCourant = tmpPersonnage;
 			context.combatActuel.personnageCourant.updateToBaseTag($("#personnageCourant"));
+			checkButtons();
 			return;
 		}
 	}
@@ -26,7 +27,7 @@ function refreshListPersonnage(){
 	}
 	//Sélectionner le personnage courrant si il existe encore;
 	if(hasPersonnageCourrant){
-		$('#personnageSelect option[value='+context.combatActuel.personnageCourant.id+']').attr('selected','selected');
+		$('#personnageSelect').val(context.combatActuel.personnageCourant.id);
 		$("#personnageCourant").removeClass("hidden");
 		$("#aucunPersonnagePlaceholder").addClass("hidden");
 	}
@@ -41,6 +42,7 @@ function refreshListPersonnage(){
 		$("#personnageCourant").addClass("hidden");
 		$("#aucunPersonnagePlaceholder").removeClass("hidden");
 	}
+	checkButtons();
 }
 
 function addPersonnageToList(toAdd){

@@ -5,10 +5,15 @@
             Gestion des combats <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li role="presentation"><a href="#">Nouveau Combat</a></li>
-            <li role="presentation"><a href="#">Charger Combat</a></li>
-            <li role="presentation"><a href="#">Sauver Combat</a></li>
-            <li role="presentation"><a href="#">Supprimer Combat</a></li>
+            <li role="presentation">
+                <a href="#" onclick="$('#combat_modal').modal()">
+                    Editer le combat
+                </a>
+            </li>
+            <li role="presentation"><a class="disabled" href="#">Nouveau Combat</a></li>
+            <li role="presentation"><a class="disabled" href="#">Charger Combat</a></li>
+            <li role="presentation"><a class="disabled" href="#">Sauver Combat</a></li>
+            <li role="presentation"><a class="disabled" href="#">Supprimer Combat</a></li>
         </ul>
     </li>
     <li class="dropdown" role="presentation">

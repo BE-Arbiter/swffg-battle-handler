@@ -7,7 +7,7 @@ let context = {
 	},
 	typeCombats:{
 		emptyValue: null,
-		list: [{code:"NOM",label:"Initiative Nominative"},{code:"TYPE",label:"Initiative par type"},{code:"GROUPE",label:"Initiative par groupe"}]
+		list: [{code:"NOM",label:"Initiative Nominative"},{code:"TYPE",label:"Initiative par type ( PJ / PNJ )"},{code:"GROUPE",label:"Initiative par groupe"}]
 	},
 	combatActuel: null,
 	combats: []
@@ -24,9 +24,11 @@ class Personnage{
 		else{
 			this.nom = "";
 		}
+		this.hasPlayed = false;
 	}
 	id;
 	nom;
+	hasPlayed;
 	type; //Ceci est un "enum"
 	groupe;
 	soak;
@@ -88,7 +90,7 @@ class Personnage{
 				effetTag.find(".inputEffetDescription").val(effet.description);
 				/* Attacher event Listener */
 				effetTag.find(".form-control").change(() =>{
-					personnageCourant.updateFromBaseTag($("#personnageCourant"));
+					context.combatActuel.personnageCourant.updateFromBaseTag($("#personnageCourant"));
 					refreshListPersonnage();
 				});
 			}
@@ -135,12 +137,18 @@ class Combat{
 	personnageInactifs;
 	lastInit;
 
-	canPlay(){
+	updateFromBaseTag(baseTag){
+		if(baseTag && baseTag.length){
+			//ChampsConcernés : typeCombat
+			this.typeCombat = baseTag.find(".inputTypeCombat").val();
+		}
+	};
 
-	}
-	nextInitiative(){
-
-	}
+	updateToBaseTag(baseTag){
+		if(baseTag && baseTag.length){
+			//Mettre à jour les tags en fonction ? En cas de chargement...
+		}
+	};
 }
 
 context.combatActuel = new Combat();

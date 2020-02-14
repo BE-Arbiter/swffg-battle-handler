@@ -99,6 +99,11 @@
 
 }
 
+.dropdown-menu a.disabled,.dropdown-menu a.disabled:hover{
+    color: #ddd;
+    cursor: default;
+}
+
 .panel_content {
     border-top: none;
     border-top-left-radius: 0;

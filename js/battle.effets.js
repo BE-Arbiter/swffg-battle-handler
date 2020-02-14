@@ -8,7 +8,6 @@ function deleteEffet(index){
 }
 
 function addEffet(){
-	debugger;
 	if(!context.combatActuel.personnageCourant.effets){
 		context.combatActuel.personnageCourant.effets = [];
 	}
