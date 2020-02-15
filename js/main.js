@@ -3,12 +3,15 @@ $(document).ready(function() {
     $("#menu").load("./html/menu.html");
     $("#combatModal").append(getHtmlFromFile("./html/modals/combatModal.html"));
 
-    $("#combat_modal .form-control").change(() =>{
+    $("#combat_modal .update-combat-control").change(() =>{
         context.combatActuel.updateFromBaseTag($("#combat_modal"));
+        refreshListCombat();
         refreshListPersonnage();
     });
 
+    //Initialiser les combats
     context.combatActuel.updateToBaseTag($("#combat_modal"));
+    refreshListCombat();
 
     let selectTypeCombat = $(".inputTypeCombat");
     for(let elem of context.typeCombats.list){
@@ -26,7 +29,7 @@ $(document).ready(function() {
             var panelRight = $("#main-panel .panel-auto-size");
             adjustSize(leftPanel,panelRight);
 
-            //Initialiser le combat;
+            //Initialiser les personnages;
             refreshListPersonnage();
 
             $("#personnageCourant .form-control").change(() =>{

@@ -1,4 +1,4 @@
-<div  id="confirm_modal" class="modal fade" tabindex="-1" role="dialog">
+<div  id="ID_MODALE" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header modal-header-primary">
@@ -9,8 +9,8 @@
 				<p>TEXT_PLACEHOLDER</p>
 			</div> 	
 			<div class="modal-footer rightAlign">
-				<button class="btn btn-primary" type="button" onclick="modal.confirm();">Confirmer</button>
-				SHOW_CANCEL_START<button class="btn btn-default" type="button" onclick="modal.cancel();">Annuler</button>SHOW_CANCEL_END
+				<button class="btn btn-primary" type="button" onclick="modal['ID_MODALE'].confirm('ID_MODALE',CONFIRM_ARGS);">CONFIRM_BUTTON_LABEL</button>
+				SHOW_CANCEL_START<button class="btn btn-default" type="button" onclick="modal['ID_MODALE'].cancel('ID_MODALE',CANCEL_ARGS);">CANCEL_BUTTON_LABEL</button>SHOW_CANCEL_END
 			</div>
 		</div>
 	</div>

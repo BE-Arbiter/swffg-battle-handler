@@ -42,6 +42,7 @@ function refreshListPersonnage(){
 		$("#personnageCourant").addClass("hidden");
 		$("#aucunPersonnagePlaceholder").removeClass("hidden");
 	}
+	context.combatActuel.updateToBaseTag($("#combat_modal"));
 	checkButtons();
 }
 
@@ -96,8 +97,8 @@ function deletePersonnage(){
 
 //Sauvegarde
 function savePersonnage(){
-	var tmpPersonnage = new Personnage($("#personnageCourant"));
-	if(tmpPersonnage.nom == null || tmpPersonnage.nom == ""){
+	var tmpPersonnage = context.combatActuel.personnageCourant
+	if(tmpPersonnage.nom == null || tmpPersonnage.nom === ""){
 		return;
 	}
 	var text = JSON.stringify(tmpPersonnage);
@@ -105,4 +106,38 @@ function savePersonnage(){
 	fileName+= ".json";
 	var blob = new Blob([text],{type:"application/json"});
 	download(blob,fileName);
+}
+
+//Activer Un personnage
+function activatePersonnage(){
+	let idList = $("#combat_modal .inputInactifsCombat").val();
+	for(let idString of idList) {
+		let id = Number(idString);
+		for (let i = 0; i < context.combatActuel.personnageInactifs.length; i++) {
+			let personnage = context.combatActuel.personnageInactifs[i];
+			if (personnage.id === id) {
+				context.combatActuel.personnageInactifs.splice(i, 1);
+				context.combatActuel.personnageList.push(personnage);
+				refreshListPersonnage();
+				context.combatActuel.updateToBaseTag($("#combat_modal"))
+			}
+		}
+	}
+}
+
+//Desactiver un personnage
+function desactivatePersonnage(){
+	let idList = $("#combat_modal .inputActifsCombat").val();
+	for(let idString of idList) {
+		let id = Number(idString);
+		for (let i = 0; i < context.combatActuel.personnageList.length; i++) {
+			let personnage = context.combatActuel.personnageList[i];
+			if (personnage.id === id) {
+				context.combatActuel.personnageList.splice(i, 1);
+				context.combatActuel.personnageInactifs.push(personnage);
+				refreshListPersonnage();
+				context.combatActuel.updateToBaseTag($("#combat_modal"))
+			}
+		}
+	}
 }

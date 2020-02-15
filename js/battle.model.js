@@ -156,6 +156,24 @@ class Combat{
 		if(baseTag && baseTag.length){
 			baseTag.find(".inputNomCombat").val(this.nom);
 			baseTag.find(".inputTypeCombat").val(this.typeCombat);
+			let selectActifs = baseTag.find(".inputActifsCombat");
+			selectActifs.empty();
+			for(let personnage of this.personnageList){
+				let nomToAdd = "Nouveau Personnage";
+				if(personnage.nom){
+					nomToAdd = personnage.nom;
+				}
+				selectActifs.append('<option value="'+personnage.id+'">'+nomToAdd+'</option>')
+			}
+			let selectInactifs = baseTag.find(".inputInactifsCombat");
+			selectInactifs.empty();
+			for(let personnage of this.personnageInactifs){
+				let nomToAdd = "Nouveau Personnage";
+				if(personnage.nom){
+					nomToAdd = personnage.nom;
+				}
+				selectInactifs.append('<option value="'+personnage.id+'">'+nomToAdd+'</option>')
+			}
 		}
 	};
 }

@@ -10,10 +10,14 @@
                     Editer le combat
                 </a>
             </li>
-            <li role="presentation"><a class="disabled" href="#">Nouveau Combat</a></li>
-            <li role="presentation"><a class="disabled" href="#">Charger Combat</a></li>
-            <li role="presentation"><a class="disabled" href="#">Sauver Combat</a></li>
-            <li role="presentation"><a class="disabled" href="#">Supprimer Combat</a></li>
+            <li  class="divider"></li>
+            <li role="presentation"><a onclick="addCombatToList(new Combat())" href="#">Nouveau Combat</a></li>
+            <li role="presentation">
+                <a onclick="$('#combatLoader').click();" href="#">Charger Combat</a>
+                <input id="combatLoader" onchange="loadCombat(this)" style="display:none" type="file"/>
+            </li>
+            <li role="presentation"><a onclick="saveCombat();" href="#">Sauver Combat</a></li>
+            <li role="presentation"><a onclick="modal.askConfirm({showCancelButton:true,onConfirm:deleteCombat});" href="#">Supprimer Combat</a></li>
         </ul>
     </li>
     <li class="dropdown" role="presentation">

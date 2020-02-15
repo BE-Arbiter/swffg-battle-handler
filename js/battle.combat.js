@@ -1,9 +1,8 @@
 function selectCombat(id){
-	for(let tmpPersonnage of context.combatActuel.personnageList){
-		if(tmpPersonnage.id == id){
-			context.combatActuel.personnageCourant = tmpPersonnage;
-			context.combatActuel.personnageCourant.updateToBaseTag($("#personnageCourant"));
-			checkButtons();
+	for(let tmpCombat of context.combats){
+		if(tmpCombat.id === id){
+			context.combatActuel = tmpCombat;
+			context.combatActuel.updateToBaseTag($("#combat_modal"));
 			return;
 		}
 	}
@@ -11,47 +10,21 @@ function selectCombat(id){
 
 function refreshListCombat(){
 	//Nettoyer le select
-	let select = $("#personnageSelect");
+	let select = $("#combatSelect");
 	select.empty();
-	//Parcourir les personnages
-	let hasPersonnageCourrant = false;
-	for(let personnageTmp of context.combatActuel.personnageList){
-		let nomToAdd = "Nouveau Personnage";
-		if(personnageTmp.nom){
-			nomToAdd = personnageTmp.nom;
-		}
-		select.append('<option value="'+personnageTmp.id+'">'+nomToAdd+'</option>')
-		if(context.combatActuel.personnageCourant && context.combatActuel.personnageCourant.nom === personnageTmp.nom){
-			hasPersonnageCourrant = true;
-		}
+	//Parcourir les combats
+	for(let combatTmp of context.combats){
+		select.append('<option value="'+combatTmp.id+'">'+combatTmp.nom+'</option>')
 	}
-	//Sélectionner le personnage courrant si il existe encore;
-	if(hasPersonnageCourrant){
-		$('#personnageSelect').val(context.combatActuel.personnageCourant.id);
-		$("#personnageCourant").removeClass("hidden");
-		$("#aucunPersonnagePlaceholder").addClass("hidden");
-	}
-	else if(context.combatActuel.personnageList.length > 0){
-		context.combatActuel.personnageCourant = context.combatActuel.personnageList[0];
-		context.combatActuel.personnageCourant.updateToBaseTag($("#personnageCourant"));
-		$("#personnageCourant").removeClass("hidden");
-		$("#aucunPersonnagePlaceholder").addClass("hidden");
-	}
-	else{
-		context.combatActuel.personnageCourant = null;
-		$("#personnageCourant").addClass("hidden");
-		$("#aucunPersonnagePlaceholder").removeClass("hidden");
-	}
-	checkButtons();
+	//Sélectionner le combat Courrant
+	select.val(context.combatActuel.id);
 }
 
 function addCombatToList(toAdd){
-	context.combatActuel.personnageCourant = toAdd;
-	context.combatActuel.personnageList.push(context.combatActuel.personnageCourant);
-	refreshListPersonnage();
-	selectPersonnage(toAdd.id);
-	$("#personnageCourant").removeClass("hidden");
-	$("#aucunPersonnagePlaceholder").addClass("hidden");
+	context.combatActuel = toAdd;
+	context.combats.push(context.combatActuel);
+	refreshListCombat();
+	selectCombat(toAdd.id);
 }
 
 function loadCombat(evenement){
@@ -90,32 +63,38 @@ function reviveCombatFromData(data){
 			newCombat.personnageCourant = personnage;
 		}
 	}
-	for(let i = 0; i < newCombat.personnageInactifs;i++){
-
+	for(let i = 0; i < newCombat.personnageInactifs.length;i++){
+		let personnage = revivePersonnageFromData(personnageData);
+		newCombat.personnageInactifs[i] = personnage;
 	}
 	return newCombat;
 }
+
 function deleteCombat(){
-	if(!context.combatActuel.personnageCourant){
+	if(!context.combatActuel){
 		return;
 	}
-	for(let i = 0; i < context.combatActuel.personnageList.length ; i++){
-		if(context.combatActuel.personnageList[i].id === context.combatActuel.personnageCourant.id){
+	if(context.combats.length === 1){
+		modal.warn("Vous ne pouvez pas supprimer le dernier combat.");
+		return;
+	}
+	for(let i = 0; i < context.combats.length ; i++){
+		if(context.combats[i].id === context.combatActuel.id){
 			context.combatActuel.personnageList.splice(i,1);
 			break;
 		}
 	}
-	refreshListPersonnage();
+	refreshListCombat();
 }
 
 //Sauvegarde
 function saveCombat(){
-	var tmpPersonnage = new Personnage($("#personnageCourant"));
-	if(tmpPersonnage.nom == null || tmpPersonnage.nom == ""){
+	var tmpCombat = context.combatActuel;
+	if(tmpCombat.nom == null || tmpCombat.nom === "Nouveau Combat"){
 		return;
 	}
-	var text = JSON.stringify(tmpPersonnage);
-	var fileName = tmpPersonnage.nom;
+	var text = JSON.stringify(tmpCombat);
+	var fileName = tmpCombat.nom;
 	fileName+= ".json";
 	var blob = new Blob([text],{type:"application/json"});
 	download(blob,fileName);
