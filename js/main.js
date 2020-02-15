@@ -8,6 +8,8 @@ $(document).ready(function() {
         refreshListPersonnage();
     });
 
+    context.combatActuel.updateToBaseTag($("#combat_modal"));
+
     let selectTypeCombat = $(".inputTypeCombat");
     for(let elem of context.typeCombats.list){
         var option = new Option(elem.label,elem.code);

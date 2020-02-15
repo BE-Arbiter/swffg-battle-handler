@@ -1,4 +1,4 @@
-function selectPersonnage(id){
+function selectCombat(id){
 	for(let tmpPersonnage of context.combatActuel.personnageList){
 		if(tmpPersonnage.id == id){
 			context.combatActuel.personnageCourant = tmpPersonnage;
@@ -9,7 +9,7 @@ function selectPersonnage(id){
 	}
 }
 
-function refreshListPersonnage(){
+function refreshListCombat(){
 	//Nettoyer le select
 	let select = $("#personnageSelect");
 	select.empty();
@@ -45,7 +45,7 @@ function refreshListPersonnage(){
 	checkButtons();
 }
 
-function addPersonnageToList(toAdd){
+function addCombatToList(toAdd){
 	context.combatActuel.personnageCourant = toAdd;
 	context.combatActuel.personnageList.push(context.combatActuel.personnageCourant);
 	refreshListPersonnage();
@@ -54,34 +54,48 @@ function addPersonnageToList(toAdd){
 	$("#aucunPersonnagePlaceholder").addClass("hidden");
 }
 
-function loadPersonnage(evenement){
+function loadCombat(evenement){
 	if (evenement.files && evenement.files[0]) {
 		var myFile = evenement.files[0];
 		var reader = new FileReader();
 		
 		reader.addEventListener('load', function (e) {
-			var newPersonnageData = JSON.parse(reader.result);
-			if(newPersonnageData.clazz !== "PERSONNAGE"){
-				console.error("Le type de fichier chargé n'est pas de type PERSONNAGE, mais de type "+newPersonnageData.clazz);
+			var newCombatData = JSON.parse(reader.result);
+			if(newCombatData.clazz !== "COMBAT"){
+				console.error("Le type de fichier chargé n'est pas de type COMBAT, mais de type "+newPersonnageData.clazz);
+				return;
 			}
-			addPersonnageToList(revivePersonnageFromData(newPersonnageData));
+			addCombatToList(reviveCombatFromData(newCombatData));
 		});
 		reader.readAsText(myFile);
 	 }   
 }
 
-function revivePersonnageFromData(data){
-	var newPersonnage = new Personnage();
+function reviveCombatFromData(data){
+	var newCombat = new Combat();
 	for(let prop in data){
 		//L'id est déjà auto-générée dans le constructeur.
 		if(prop === "id"){
 			continue;
 		}
-		newPersonnage[prop] = data[prop];
+		newCombat[prop] = data[prop];
 	}
-	return newPersonnage;
+	//Pour chaque personnage il va falloir faire un "revive aussi"
+	for(let i = 0; i < newCombat.personnageList.length;i++){
+		let personnageData = newCombat.personnageList[i];
+		let savedId = personnageData.id;
+		let personnage = revivePersonnageFromData(personnageData);
+		newCombat.personnageList[i] = personnage;
+		if(savedId === newCombat.personnageCourant.id){
+			newCombat.personnageCourant = personnage;
+		}
+	}
+	for(let i = 0; i < newCombat.personnageInactifs;i++){
+
+	}
+	return newCombat;
 }
-function deletePersonnage(){
+function deleteCombat(){
 	if(!context.combatActuel.personnageCourant){
 		return;
 	}
@@ -95,7 +109,7 @@ function deletePersonnage(){
 }
 
 //Sauvegarde
-function savePersonnage(){
+function saveCombat(){
 	var tmpPersonnage = new Personnage($("#personnageCourant"));
 	if(tmpPersonnage.nom == null || tmpPersonnage.nom == ""){
 		return;

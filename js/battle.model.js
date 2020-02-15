@@ -25,6 +25,7 @@ class Personnage{
 			this.nom = "";
 		}
 		this.hasPlayed = false;
+		this.clazz= "PERSONNAGE"
 	}
 	id;
 	nom;
@@ -36,6 +37,7 @@ class Personnage{
 	adversary;
 	initiative;
 	effets;
+	clazz;
 
 	updateFromBaseTag(baseTag){
 		if(baseTag && baseTag.length){
@@ -121,14 +123,18 @@ class Initiative{
 //Définition d'un combat
 class Combat{
 	constructor(baseTag){
+		this.id = context.counter++;
 		this.personnageCourant = new Personnage();
 		this.personnageList = [this.personnageCourant];
 		this.personnageInactifs =  [];
 		this.lastInit =  null;
 		this.initiatives = [];
 		this.typeCombat = "NOM";
+		this.nom = "Nouveau Combat";
 		this.currentInitiativeIndex;
+		this.clazz= "COMBAT"
 	}
+	id;
 	typeCombat; //Groupe , Type ou Nominatif
 	initiatives;
 	currentInitiativeIndex;
@@ -136,17 +142,20 @@ class Combat{
 	personnageList;
 	personnageInactifs;
 	lastInit;
+	nom;
+	clazz;
 
 	updateFromBaseTag(baseTag){
 		if(baseTag && baseTag.length){
-			//ChampsConcernés : typeCombat
+			this.nom = baseTag.find(".inputNomCombat").val();
 			this.typeCombat = baseTag.find(".inputTypeCombat").val();
 		}
 	};
 
 	updateToBaseTag(baseTag){
 		if(baseTag && baseTag.length){
-			//Mettre à jour les tags en fonction ? En cas de chargement...
+			baseTag.find(".inputNomCombat").val(this.nom);
+			baseTag.find(".inputTypeCombat").val(this.typeCombat);
 		}
 	};
 }
