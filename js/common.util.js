@@ -62,3 +62,33 @@ function getHtmlFromFile(filename) {
     });
     return html;
 }
+
+//Synchronise
+function synchroniseContext(){
+    if(typeof(Storage) === "undefined"){
+        modal.warn("Gestion du LocalStorage non supportée");
+        return;
+    }
+    window.localStorage.setItem("FFG_BATTLE_HANDLER_CONTEXT",JSON.stringify(context));
+}
+
+function loadContextFromStorage(){
+    let oldContext = window.localStorage.getItem("FFG_BATTLE_HANDLER_CONTEXT");
+    oldContext = JSON.parse(oldContext);
+    if(!oldContext || !oldContext.combats || !oldContext.combats.length){
+        console.warn("Attention, l'ancien contexte est \"vide\"");
+        return;
+    }
+    //Nettoyer les combats
+    context.combats = [];
+    //Faire "revivre" tous les combats
+    for(let combatData of oldContext.combats){
+        let savedId = combatData.id;
+        let combat = reviveCombatFromData(combatData);
+        if(savedId === oldContext.combatActuel.id){
+            context.combatActuel = combat;
+        }
+        context.combats.push(combat);
+    }
+}
+

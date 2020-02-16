@@ -1,6 +1,7 @@
 function selectPersonnage(id){
+	id = Number(id);
 	for(let tmpPersonnage of context.combatActuel.personnageList){
-		if(tmpPersonnage.id == id){
+		if(tmpPersonnage.id === id){
 			context.combatActuel.personnageCourant = tmpPersonnage;
 			context.combatActuel.personnageCourant.updateToBaseTag($("#personnageCourant"));
 			checkButtons();

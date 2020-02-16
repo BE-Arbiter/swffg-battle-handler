@@ -1,8 +1,13 @@
 function selectCombat(id){
+	id = Number(id);
 	for(let tmpCombat of context.combats){
 		if(tmpCombat.id === id){
 			context.combatActuel = tmpCombat;
 			context.combatActuel.updateToBaseTag($("#combat_modal"));
+			refreshListCombat();
+			refreshListPersonnage();
+			applyInitiativesToTag($("#listInitiatives"));
+			tmpCombat.personnageCourant.updateToBaseTag($('#personnageCourant'))
 			return;
 		}
 	}
@@ -64,6 +69,7 @@ function reviveCombatFromData(data){
 		}
 	}
 	for(let i = 0; i < newCombat.personnageInactifs.length;i++){
+		let personnageData = newCombat.personnageInactifs[i];
 		let personnage = revivePersonnageFromData(personnageData);
 		newCombat.personnageInactifs[i] = personnage;
 	}
