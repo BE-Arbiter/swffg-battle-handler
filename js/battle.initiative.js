@@ -9,6 +9,7 @@ function refreshListInitiatives() {
         }
         let tmpInitiative = new Initiative();
         tmpInitiative.value = personnage.initiative;
+        personnage.hasPlayed = false;
         switch (typeCombat) {
             case "TYPE":
                 tmpInitiative.label = personnage.type;
@@ -60,14 +61,29 @@ function applyInitiativesToTag(baseTag) {
         let initiative = context.combatActuel.initiatives[i];
         /* Créer le tag */
         let template = getHtmlFromFile("./html/templates/templateInitiative.html");
+        if(context.combatActuel.typeCombat === "NOM"){
+            template = getHtmlFromFile("./html/templates/templateInitiativeNominative.html");
+            template = template.split("PLACEHOLDER_ONCLICK").join("selectPersonnage("+initiative.group+");refreshListPersonnage()");
+        }
+        else{
+            template = template.split("PLACEHOLDER_ONCLICK").join("");
+        }
         template = template.split("PLACEHOLDER_VALEUR").join(initiative.value);
         template = template.split("PLACEHOLDER_LABEL").join(initiative.label);
         baseTag.append(template);
     }
+    baseTag.append("<div class='row'><div class='col-md-12'><hr></div></div>");
     for(let i = 0; i < context.combatActuel.currentInitiativeIndex;i++){
         let initiative = context.combatActuel.initiatives[i];
         /* Créer le tag */
         let template = getHtmlFromFile("./html/templates/templateInitiative.html");
+        if(context.combatActuel.typeCombat === "NOM"){
+            template = getHtmlFromFile("./html/templates/templateInitiativeNominative.html");
+            template = template.split("PLACEHOLDER_ONCLICK").join("selectPersonnage("+initiative.group+");refreshListPersonnage()");
+        }
+        else{
+            template = template.split("PLACEHOLDER_ONCLICK").join("");
+        }
         template = template.split("PLACEHOLDER_VALEUR").join(initiative.value);
         template = template.split("PLACEHOLDER_LABEL").join(initiative.label);
         baseTag.append(template);
