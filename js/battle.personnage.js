@@ -87,12 +87,21 @@ function deletePersonnage(){
 	if(!context.combatActuel.personnageCourant){
 		return;
 	}
+	//Supprimer le perso de la liste des persos.
 	for(let i = 0; i < context.combatActuel.personnageList.length ; i++){
 		if(context.combatActuel.personnageList[i].id === context.combatActuel.personnageCourant.id){
 			context.combatActuel.personnageList.splice(i,1);
 			break;
 		}
 	}
+	//Supprimer son initiative de la liste des initiatives
+	for(let i = 0; i < context.combatActuel.initiatives.length ; i++){
+		if(context.combatActuel.initiatives[i].from === context.combatActuel.personnageCourant.id){
+			context.combatActuel.initiatives.splice(i,1);
+			break;
+		}
+	}
+	refreshListInitiatives();
 	refreshListPersonnage();
 }
 

@@ -32,6 +32,12 @@ class Personnage{
 	hasPlayed;
 	type; //Ceci est un "enum"
 	groupe;
+	blessure;
+	blessureSeuil;
+	stress;
+	stressSeuil;
+	conflit;
+	moralite;
 	soak;
 	defense;
 	adversary;
@@ -44,10 +50,16 @@ class Personnage{
 			this.nom = baseTag.find(".inputNom").val();
 			this.type = baseTag.find(".inputType").val();
 			this.groupe = baseTag.find(".inputGroupe").val();
-			this.soak = getNumber(baseTag.find(".inputSoak").val());
-			this.defense = getNumber(baseTag.find(".inputDefense").val());
+			this.soak = baseTag.find(".inputSoak").val();
+			this.defense = baseTag.find(".inputDefense").val();
 			this.adversary = getNumber(baseTag.find(".inputAdversary").val());
 			this.initiative = getNumber(baseTag.find(".inputInitiative").val());
+			this.blessure = getNumber(baseTag.find(".inputBlessure").val());
+			this.blessureSeuil = getNumber(baseTag.find(".inputBlessureSeuil").val());
+			this.stress = getNumber(baseTag.find(".inputStress").val());
+			this.stressSeuil = getNumber(baseTag.find(".inputStressSeuil").val());
+			this.conflit = getNumber(baseTag.find(".inputConflit").val());
+			this.moralite = getNumber(baseTag.find(".inputMoralite").val());
 			this.effets = [];
 			baseTag.find(".effet_element").each((index,element) => {
 				let effetTag = $( element );
@@ -70,6 +82,12 @@ class Personnage{
 			baseTag.find(".inputDefense").val(this.defense);
 			baseTag.find(".inputAdversary").val(this.adversary);
 			baseTag.find(".inputInitiative").val(this.initiative);
+			baseTag.find(".inputBlessure").val(this.blessure);
+			baseTag.find(".inputBlessureSeuil").val(this.blessureSeuil);
+			baseTag.find(".inputStress").val(this.stress);
+			baseTag.find(".inputStressSeuil").val(this.stressSeuil);
+			baseTag.find(".inputConflit").val(this.conflit);
+			baseTag.find(".inputMoralite").val(this.moralite);
 			let listEffetsTag = baseTag.find(".ListEffets");
 			if(this.effets.length === 0){
 				baseTag.find(".effetPlaceholder").removeClass("hidden");
@@ -113,11 +131,13 @@ class Initiative{
 		this.value = 0;
 		this.last = false;
 		this.group = "";
+		this.from = null;
 	}
 	label;
 	group;
 	value;
 	last;
+	from;
 }
 
 //Définition d'un combat

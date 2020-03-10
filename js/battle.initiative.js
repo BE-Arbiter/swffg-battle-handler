@@ -10,6 +10,7 @@ function refreshListInitiatives() {
         let tmpInitiative = new Initiative();
         tmpInitiative.value = personnage.initiative;
         personnage.hasPlayed = false;
+        tmpInitiative.from = personnage.id;
         switch (typeCombat) {
             case "TYPE":
                 tmpInitiative.label = personnage.type;

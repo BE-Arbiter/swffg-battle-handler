@@ -42,7 +42,9 @@ $(document).ready(function () {
     //Initialiser les combats
     context.combatActuel.updateToBaseTag($("#combat_modal"));
     refreshListCombat();
-
+    if(context.combatActuel != null && context.combatActuel.personnageCourant != null){
+        selectPersonnage(context.combatActuel.personnageCourant.id);
+    }
     //Initialiser les personnages;
     refreshListPersonnage();
 
