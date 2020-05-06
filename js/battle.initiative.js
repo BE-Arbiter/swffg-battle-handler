@@ -119,6 +119,9 @@ function checkButtons() {
 
 function canPlay(){
     let group = context.combatActuel.initiatives[context.combatActuel.currentInitiativeIndex].group;
+    if(!context.combatActuel.personnageCourant){
+        return false;
+    }
     switch (context.combatActuel.typeCombat) {
         case "TYPE":
             return (context.combatActuel.personnageCourant.type === group) && !context.combatActuel.personnageCourant.hasPlayed;

@@ -108,8 +108,9 @@ function deletePersonnage(){
 			break;
 		}
 	}
-	refreshListInitiatives();
+	context.combatActuel.personnageCourant = null;
 	refreshListPersonnage();
+	refreshListInitiatives();
 }
 
 //Sauvegarde
