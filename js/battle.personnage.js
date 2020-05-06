@@ -47,6 +47,12 @@ function refreshListPersonnage(){
 	checkButtons();
 }
 
+function duplicatePersonnage(){
+	if(context.combatActuel && context.combatActuel.personnageCourant) {
+		addPersonnageToList(revivePersonnageFromData(context.combatActuel.personnageCourant));
+	}
+}
+
 function addPersonnageToList(toAdd){
 	context.combatActuel.personnageCourant = toAdd;
 	context.combatActuel.personnageList.push(context.combatActuel.personnageCourant);
@@ -83,6 +89,7 @@ function revivePersonnageFromData(data){
 	}
 	return newPersonnage;
 }
+
 function deletePersonnage(){
 	if(!context.combatActuel.personnageCourant){
 		return;

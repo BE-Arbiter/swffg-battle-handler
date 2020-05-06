@@ -52,7 +52,6 @@ modal.showModal = (options) =>{
 	modalTemplate = modalTemplate.split("ID_MODALE").join(idModal);
 
 
-
 	if(showCancelButton){
 		modalTemplate = modalTemplate.split("SHOW_CANCEL_START").join("");
 		modalTemplate = modalTemplate.split("SHOW_CANCEL_END").join("");

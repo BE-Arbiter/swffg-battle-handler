@@ -46,6 +46,11 @@ function refreshListInitiatives() {
     }
     applyInitiativesToTag($("#listInitiatives"));
     checkButtons();
+
+    //Addapter la taille
+    var leftPanel = $("#turn-order .panel-auto-size");
+    var panelRight = $("#main-panel .panel-auto-size");
+    adjustSize(leftPanel, panelRight);
 }
 
 function applyInitiativesToTag(baseTag) {

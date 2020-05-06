@@ -53,7 +53,4 @@ $(document).ready(function () {
     var panelRight = $("#main-panel .panel-auto-size");
     adjustSize(leftPanel, panelRight);
 
-
-
-
 });

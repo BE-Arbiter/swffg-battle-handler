@@ -43,6 +43,11 @@
                 <input id="personnageLoader" onchange="loadPersonnage(this)" style="display:none" type="file"/>
             </li>
             <li role="presentation">
+                <a href="#" onclick="duplicatePersonnage();">
+                    Dupliquer Personnage
+                </a>
+            </li>
+            <li role="presentation">
                 <a href="#" onclick="modal.askConfirm({showCancelButton:true,onConfirm:deletePersonnage});">
                     Supprimer Personnage
                 </a>

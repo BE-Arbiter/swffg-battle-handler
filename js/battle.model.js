@@ -32,6 +32,7 @@ class Personnage{
 	hasPlayed;
 	type; //Ceci est un "enum"
 	groupe;
+	taillePack;
 	blessure;
 	blessureSeuil;
 	stress;
@@ -60,6 +61,7 @@ class Personnage{
 			this.stressSeuil = getNumber(baseTag.find(".inputStressSeuil").val());
 			this.conflit = getNumber(baseTag.find(".inputConflit").val());
 			this.moralite = getNumber(baseTag.find(".inputMoralite").val());
+			this.taillePack = baseTag.find(".taillePack").val();
 			this.effets = [];
 			baseTag.find(".effet_element").each((index,element) => {
 				let effetTag = $( element );
@@ -88,6 +90,7 @@ class Personnage{
 			baseTag.find(".inputStressSeuil").val(this.stressSeuil);
 			baseTag.find(".inputConflit").val(this.conflit);
 			baseTag.find(".inputMoralite").val(this.moralite);
+			baseTag.find(".taillePack").val(this.taillePack);
 			let listEffetsTag = baseTag.find(".ListEffets");
 			if(this.effets.length === 0){
 				baseTag.find(".effetPlaceholder").removeClass("hidden");
