@@ -1,7 +1,12 @@
-function refreshListInitiatives() {
+function cleanInitiatives(){
     context.combatActuel.initiatives = [];
     context.combatActuel.currentInitiativeIndex = null;
     context.combatActuel.playedInitiatives = [];
+    applyInitiativesToTag($("#listInitiatives"));
+}
+
+function refreshListInitiatives() {
+    cleanInitiatives();
     let typeCombat = context.combatActuel.typeCombat;
     for (let personnage of context.combatActuel.personnageList) {
         if (typeof (personnage.initiative) !== "number") {

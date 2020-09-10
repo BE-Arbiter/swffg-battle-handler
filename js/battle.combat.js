@@ -6,6 +6,8 @@ function selectCombat(id){
 			context.combatActuel.updateToBaseTag($("#combat_modal"));
 			refreshListCombat();
 			refreshListPersonnage();
+			refreshInactiveCharacterList();
+			cleanInitiatives();
 			applyInitiativesToTag($("#listInitiatives"));
 			tmpCombat.personnageCourant.updateToBaseTag($('#personnageCourant'))
 			return;
