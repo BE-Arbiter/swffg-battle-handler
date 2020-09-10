@@ -147,6 +147,7 @@ function activateOnePersonnage(idString) {
             context.combatActuel.updateToBaseTag($("#combat_modal"))
         }
     }
+    handleSize();
 }
 function activatePersonnage() {
     let idList = $("#combat_modal .inputInactifsCombat").val();
@@ -198,6 +199,7 @@ function desactivateCurrentPersonnage() {
             context.combatActuel.updateToBaseTag($("#combat_modal"))
         }
     }
+    handleSize();
 }
 
 function desactivatePersonnage() {
