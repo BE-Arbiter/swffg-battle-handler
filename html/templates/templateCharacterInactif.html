@@ -1,0 +1,14 @@
+<div class="row inactive_character">
+    <div class="col-md-7">CHARACTER_NAME</div>
+    <div class="col-md-5 col-sm-5 col-xs-5 rightAlign">
+        <a class="btn-default btn btn-sm" href="#" onclick="modal.askConfirm({showCancelButton:true,onConfirm:deletePersonnageInactif,onConfirmArguments: CHARACTER_ID});">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+        <a class="btn-default btn btn-sm" href="#" onclick="activateOnePersonnage(CHARACTER_ID);">
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </a>
+        <a class="btn-default btn btn-sm" href="#" onclick="copyInactivePersonnage(CHARACTER_ID);">
+            <span class="glyphicon glyphicon-share-alt"></span>
+        </a>
+    </div>
+</div>

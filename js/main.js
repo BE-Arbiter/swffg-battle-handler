@@ -2,7 +2,9 @@
 $(document).ready(function () {
     $("#menu").load("./html/menu.html");
     $("#combatModal").append(getHtmlFromFile("./html/modals/combatModal.html"));
-    $("#turn-order").append(getHtmlFromFile("./html/turn-order.html"));
+    let leftPanelDiv = $("#left-panel");
+    leftPanelDiv.append(getHtmlFromFile("./html/character-list.html"));
+    leftPanelDiv.append(getHtmlFromFile("./html/turn-order.html"));
     $("#main-panel").append(getHtmlFromFile("./html/main-panel.html"));
     // Placer les events-listeners
     $("#combat_modal .update-combat-control").change(()=>{
@@ -21,18 +23,21 @@ $(document).ready(function () {
     $("#returnButton").click(function () {
         previousInit();
     });
+    $("#renderInactiveButton").click(function () {
+        desactivateCurrentPersonnage();
+    });
     // Remplir les selects
     let selectTypeCombat = $(".inputTypeCombat");
     for (let elem of context.typeCombats.list) {
-        var option = new Option(elem.label, elem.code);
+        const option = new Option(elem.label, elem.code);
         selectTypeCombat.append(option);
     }
 
     let selectTypePj = $(".inputType");
     var emptyOption = new Option(context.typesPj.emptyValue.label, context.typesPj.emptyValue.code);
-    selectTypePj.append(emptyOption)
+    selectTypePj.append(emptyOption);
     for (let elem of context.typesPj.list) {
-        var option = new Option(elem.label, elem.code);
+        const option = new Option(elem.label, elem.code);
         selectTypePj.append(option);
     }
 
@@ -47,9 +52,10 @@ $(document).ready(function () {
     }
     //Initialiser les personnages;
     refreshListPersonnage();
+    refreshInactiveCharacterList();
 
     //Addapter la taille
-    var leftPanel = $("#turn-order .panel-auto-size");
+    var leftPanel = $("#left-panel.panel-auto-size");
     var panelRight = $("#main-panel .panel-auto-size");
     adjustSize(leftPanel, panelRight);
 
