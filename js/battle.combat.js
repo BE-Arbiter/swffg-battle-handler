@@ -1,3 +1,17 @@
+function applyCombatName(){
+	if(!context.combatActuel){
+		return;
+	}
+	let typeCombat = "";
+	for(let type of context.typeCombats.list){
+		if(type.code === context.combatActuel.typeCombat){
+			typeCombat = type.label;
+		}
+	}
+	const combat_name = context.combatActuel.nom + " : "+typeCombat;
+	$("#battle_information").text(combat_name);
+}
+
 function selectCombat(id){
 	id = Number(id);
 	for(let tmpCombat of context.combats){
@@ -6,6 +20,7 @@ function selectCombat(id){
 			context.combatActuel.updateToBaseTag($("#combat_modal"));
 			refreshListCombat();
 			refreshListPersonnage();
+			applyCombatName();
 			refreshInactiveCharacterList();
 			cleanInitiatives();
 			applyInitiativesToTag($("#listInitiatives"));
@@ -23,7 +38,7 @@ function refreshListCombat(){
 	for(let combatTmp of context.combats){
 		select.append('<option value="'+combatTmp.id+'">'+combatTmp.nom+'</option>')
 	}
-	//Sélectionner le combat Courrant
+	//Sélectionner le combat Courant
 	select.val(context.combatActuel.id);
 }
 
@@ -88,10 +103,11 @@ function deleteCombat(){
 	}
 	for(let i = 0; i < context.combats.length ; i++){
 		if(context.combats[i].id === context.combatActuel.id){
-			context.combatActuel.personnageList.splice(i,1);
+			context.combats.splice(i,1);
 			break;
 		}
 	}
+	context.combatActuel = context.combats[0];
 	refreshListCombat();
 }
 

@@ -49,7 +49,7 @@ $(document).ready(function () {
 
     //Eventuellement revive le "context"
     loadContextFromStorage();
-
+    applyCombatName();
     //Initialiser les combats
     context.combatActuel.updateToBaseTag($("#combat_modal"));
     refreshListCombat();
