@@ -19,6 +19,7 @@ function refreshListPersonnage() {
     select.empty();
     //Parcourir les personnages
     let hasPersonnageCourrant = false;
+    context.combatActuel.personnageList.sort((a, b)=> stringCompare(a.nom,b.nom));
     for (let personnageTmp of context.combatActuel.personnageList) {
         let nomToAdd = "Nouveau Personnage";
         if (personnageTmp.nom) {
@@ -222,6 +223,7 @@ function refreshInactiveCharacterList(){
 	let body = $("#character-list-body");
 	body.find(".inactive_character_placeholder").removeClass("hidden");
 	body.find(".inactive_character").remove();
+	context.combatActuel.personnageInactifs.sort((a, b)=> stringCompare(a.nom,b.nom));
 	for(let personnage of context.combatActuel.personnageInactifs){
 		let template = getHtmlFromFile("./html/templates/templateCharacterInactif.html");
 		template = template.split("CHARACTER_NAME").join(personnage.nom);

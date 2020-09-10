@@ -35,6 +35,7 @@ function refreshListCombat(){
 	let select = $("#combatSelect");
 	select.empty();
 	//Parcourir les combats
+	context.combats.sort((a, b)=> stringCompare(a.nom,b.nom));
 	for(let combatTmp of context.combats){
 		select.append('<option value="'+combatTmp.id+'">'+combatTmp.nom+'</option>')
 	}
