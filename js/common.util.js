@@ -20,6 +20,18 @@ function getNumber(value) {
 }
 
 //Gestion des hauteurs de colonnes pour un joli layout
+function handleSize(){
+    if(!context.heightObserver){
+        return;
+    }
+    context.heightObserver.disconnect();
+    var leftPanel = $("#left-panel.panel-auto-size");
+    var panelRight = $("#main-panel .panel-auto-size");
+    adjustSize(leftPanel, panelRight);
+    context.heightObserver.observe(leftPanel[0],{attributes:true});
+    context.heightObserver.observe(panelRight[0],{attributes:true});
+}
+
 function adjustSize(panelLeft, panelRight) {
     resetSize(panelLeft, panelRight);
     if ($(window).width() > 991) {
@@ -92,3 +104,23 @@ function loadContextFromStorage(){
     }
 }
 
+//For switching collapsible element()
+function collapser(source){
+    let myJQueryEvent = source;
+    let selector = myJQueryEvent.attr("data-target");
+    while(!selector){
+        myJQueryEvent = myJQueryEvent.parent();
+        if(myJQueryEvent.is('body')){
+            return;
+        }
+        selector = myJQueryEvent.attr("data-target");
+    }
+    const element = $(selector);
+    if(element.hasClass("in")){
+        element.removeClass("in");
+    }
+    else{
+        element.addClass("in");
+    }
+    handleSize();
+}

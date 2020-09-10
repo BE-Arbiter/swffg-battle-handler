@@ -13,9 +13,6 @@
                 <a class="btn btn-default btn-sm" href="#" id="renderInactiveButton">
                     <span class="glyphicon glyphicon glyphicon-arrow-left"></span>
                 </a>
-                <a class="btn btn-default btn-sm disabled" href="#" id="returnButton">
-                    <span class="glyphicon glyphicon-step-backward"></span>
-                </a>
                 <a class="disabled btn-primary btn btn-sm" href="#" id="playButton">
                     <span class="glyphicon glyphicon-play"></span>
                 </a>
@@ -140,13 +137,13 @@
                             <a class="btn-default btn btn-sm" href="#" onclick="addEffet();">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
-                            <a class="btn-default btn btn-sm" href="#" data-toggle="collapse" data-target="#main-list-effet">
+                            <a class="btn-default btn btn-sm collapser" href="#" data-target="#main-list-effet">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div id="main-list-effet" class="panel-body ListEffets  collapse in ">
+                <div id="main-list-effet" class="panel-body ListEffets collapse in">
                     <div class="row">
                         <label class="col-lg-7 col-md-6 hidden-sm hidden-xs">Nom</label>
                         <label class="col-md-2 hidden-sm hidden-xs">Durée Restante</label>

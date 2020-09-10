@@ -1,7 +1,7 @@
 function refreshListInitiatives() {
     context.combatActuel.initiatives = [];
     context.combatActuel.currentInitiativeIndex = null;
-    context.combatActuel.lastInit = null;
+    context.combatActuel.playedInitiatives = [];
     let typeCombat = context.combatActuel.typeCombat;
     for (let personnage of context.combatActuel.personnageList) {
         if (typeof (personnage.initiative) !== "number") {
@@ -97,19 +97,29 @@ function applyInitiativesToTag(baseTag) {
 }
 
 function checkButtons() {
-    let playButton = $("#playButton");
-    let showPlay = false;
     let returnButton = $("#returnButton");
-    if (context.combatActuel.initiatives && context.combatActuel.initiatives.length > 0) {
-        showPlay = canPlay();
+    let forwardButton = $("#forwardButton");
+
+    if(context.combatActuel.initiatives && context.combatActuel.currentInitiativeIndex === (context.combatActuel.initiatives.length-1)){
+        forwardButton.addClass("disabled");
     }
-    if( context.combatActuel.lastInit){
+    else{
+        forwardButton.removeClass("disabled");
+    }
+    if( context.combatActuel.playedInitiatives.length > 0){
         returnButton.removeClass("disabled");
     }
     else{
         returnButton.addClass("disabled");
     }
-
+    checkPlayButton();
+}
+function checkPlayButton(){
+    let playButton = $("#playButton");
+    let showPlay = false;
+    if (context.combatActuel.initiatives && context.combatActuel.initiatives.length > 0) {
+        showPlay = canPlay();
+    }
     if (showPlay) {
         playButton.removeClass("disabled");
     } else {
@@ -138,12 +148,14 @@ function previousInit(){
     if(!context.combatActuel.initiatives || context.combatActuel.initiatives.length === 0){
         return;
     }
-    if(!context.combatActuel.lastInit){
+    if(context.combatActuel.playedInitiatives.length == 0){
         return;
     }
+    let lastInit = context.combatActuel.playedInitiatives.pop();
     context.combatActuel.currentInitiativeIndex--;
-    context.combatActuel.lastInit.hasPlayed = false;
-    context.combatActuel.lastInit = null;
+    if(lastInit) {
+        lastInit.hasPlayed = false;
+    }
     if(context.combatActuel.typeCombat === "NOM"){
         let id = context.combatActuel.initiatives[context.combatActuel.currentInitiativeIndex].group;
         selectPersonnage(id);
@@ -153,16 +165,16 @@ function previousInit(){
     checkButtons();
 }
 
-function nextInit() {
+function nextInit(emptySlot) {
     if(!context.combatActuel.initiatives || context.combatActuel.initiatives.length === 0){
         return;
     }
-    if(!canPlay()){
+    if(!canPlay() && !emptySlot){
         return;
     }
     if(context.combatActuel.currentInitiativeIndex === (context.combatActuel.initiatives.length-1)){
         context.combatActuel.currentInitiativeIndex = 0;
-        context.combatActuel.lastInit = null;
+        context.combatActuel.playedInitiatives = [];
         for(let personnage of context.combatActuel.personnageList){
             personnage.hasPlayed = false;
             let toDeleteEffet = [];
@@ -182,8 +194,13 @@ function nextInit() {
     }
     else {
         context.combatActuel.currentInitiativeIndex++;
-        context.combatActuel.personnageCourant.hasPlayed = true;
-        context.combatActuel.lastInit = context.combatActuel.personnageCourant;
+        if(!emptySlot) {
+            context.combatActuel.personnageCourant.hasPlayed = true;
+            context.combatActuel.playedInitiatives.push(context.combatActuel.personnageCourant);
+        }
+        else{
+            context.combatActuel.playedInitiatives.push(null);
+        }
     }
     if(context.combatActuel.typeCombat === "NOM"){
         let id = context.combatActuel.initiatives[context.combatActuel.currentInitiativeIndex].group;

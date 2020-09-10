@@ -10,7 +10,9 @@ let context = {
 		list: [{code:"NOM",label:"Initiative Nominative"},{code:"TYPE",label:"Initiative par type ( PJ / PNJ )"},{code:"GROUPE",label:"Initiative par groupe"}]
 	},
 	combatActuel: null,
-	combats: []
+	combats: [],
+	heightObserver: null
+
 };
 
 //Définition d'un personnage
@@ -150,7 +152,7 @@ class Combat{
 		this.personnageCourant = new Personnage();
 		this.personnageList = [this.personnageCourant];
 		this.personnageInactifs =  [];
-		this.lastInit =  null;
+		this.playedInitiatives =  [];
 		this.initiatives = [];
 		this.typeCombat = "NOM";
 		this.nom = "Nouveau Combat";
@@ -164,7 +166,7 @@ class Combat{
 	personnageCourant;
 	personnageList;
 	personnageInactifs;
-	lastInit;
+	playedInitiatives;
 	nom;
 	clazz;
 

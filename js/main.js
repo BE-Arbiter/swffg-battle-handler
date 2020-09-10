@@ -23,8 +23,14 @@ $(document).ready(function () {
     $("#returnButton").click(function () {
         previousInit();
     });
+    $("#forwardButton").click(function () {
+        nextInit(true);
+    });
     $("#renderInactiveButton").click(function () {
         desactivateCurrentPersonnage();
+    });
+    $(".collapser").click(function(event){
+        collapser($(event.target));
     });
     // Remplir les selects
     let selectTypeCombat = $(".inputTypeCombat");
@@ -54,9 +60,9 @@ $(document).ready(function () {
     refreshListPersonnage();
     refreshInactiveCharacterList();
 
-    //Addapter la taille
-    var leftPanel = $("#left-panel.panel-auto-size");
-    var panelRight = $("#main-panel .panel-auto-size");
-    adjustSize(leftPanel, panelRight);
-
+    //Ajouter l'auto resize des doms
+    context.heightObserver = new MutationObserver( (mutations) =>{
+        handleSize();
+    });
+    handleSize();
 });

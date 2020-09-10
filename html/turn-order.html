@@ -1,13 +1,19 @@
 <div class="panel-heading border-top-ddd">
     <div class="row">
-        <div class="col-md-8 col-sm-8 col-xs-8">
+        <div class="col-md-6 col-sm-6 col-xs-6">
             <h5 style="font-weight:bold">Ordre d'initiative</h5>
         </div>
-        <div class="col-md-4 col-sm-4 col-xs-4 rightAlign">
+        <div class="col-md-6 col-sm-6 col-xs-6 rightAlign">
             <a class="btn-default btn btn-sm" href="#" onclick="refreshListInitiatives();">
-                <span class="glyphicon glyphicon-refresh"></span>
+                <span class="glyphicon glyphicon-repeat"></span>
             </a>
-            <a class="btn-default btn btn-sm" href="#" data-toggle="collapse" data-target="#listInitiatives">
+            <a class="btn btn-default btn-sm disabled" href="#" id="returnButton">
+                <span class="glyphicon glyphicon-step-backward"></span>
+            </a>
+            <a class="btn-default btn btn-sm disabled" href="#" id="forwardButton">
+                <span class="glyphicon glyphicon-step-forward"></span>
+            </a>
+            <a class="btn-default btn btn-sm collapser" href="#" data-target="#listInitiatives">
                 <span class="glyphicon glyphicon-minus"></span>
             </a>
         </div>

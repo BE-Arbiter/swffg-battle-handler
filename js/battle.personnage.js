@@ -4,7 +4,7 @@ function selectPersonnage(id) {
         if (tmpPersonnage.id === id) {
             context.combatActuel.personnageCourant = tmpPersonnage;
             context.combatActuel.personnageCourant.updateToBaseTag($("#personnageCourant"));
-            checkButtons();
+            checkPlayButton();
             return;
         }
     }
@@ -48,7 +48,7 @@ function refreshListPersonnage() {
         inactiveButton.addClass("disabled");
     }
     context.combatActuel.updateToBaseTag($("#combat_modal"));
-    checkButtons();
+    checkPlayButton();
 }
 
 function duplicatePersonnage() {
@@ -105,16 +105,8 @@ function deletePersonnage() {
             break;
         }
     }
-    //Supprimer son initiative de la liste des initiatives
-    for (let i = 0; i < context.combatActuel.initiatives.length; i++) {
-        if (context.combatActuel.initiatives[i].from === context.combatActuel.personnageCourant.id) {
-            context.combatActuel.initiatives.splice(i, 1);
-            break;
-        }
-    }
     context.combatActuel.personnageCourant = null;
     refreshListPersonnage();
-    refreshListInitiatives();
 }
 function deletePersonnageInactif(idString) {
 	//Supprimer le perso de la liste des persos.
@@ -201,7 +193,6 @@ function desactivateCurrentPersonnage() {
             context.combatActuel.personnageInactifs.push(personnage);
             context.combatActuel.personnageCourant = null;
             refreshListPersonnage();
-            refreshListInitiatives();
 			refreshInactiveCharacterList();
             context.combatActuel.updateToBaseTag($("#combat_modal"))
         }
@@ -218,7 +209,6 @@ function desactivatePersonnage() {
                 context.combatActuel.personnageList.splice(i, 1);
                 context.combatActuel.personnageInactifs.push(personnage);
                 refreshListPersonnage();
-                refreshListInitiatives();
 				refreshInactiveCharacterList();
                 context.combatActuel.updateToBaseTag($("#combat_modal"))
             }
